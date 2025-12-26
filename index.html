@@ -105,21 +105,35 @@
                 </div>
 
                 <!-- My Account Section -->
-                <section id="account" class="account section-padding">
-                    <div class="container">
-                        <h2 class="section-title">My Account</h2>
-                
-                        <div class="account-card card">
-                            <p><strong>Name:</strong> <span id="accountName">John Doe</span></p>
-                            <p><strong>Email:</strong> <span id="accountEmail">john@example.com</span></p>
-                            <p><strong>Account Status:</strong> <span class="status-active">Active</span></p>
-                            <p><strong>Joined:</strong> <span id="joinDate">2025-01-01</span></p>
-                
-                            <button class="btn btn-secondary" onclick="editProfile()">Edit Profile</button>
-                            <button class="btn btn-danger" onclick="handleLogout(event)">Logout</button>
-                        </div>
-                    </div>
-                </section>
+                <!-- My Account Section -->
+<section id="account" class="account section-padding">
+    <div class="container">
+        <h2 class="section-title">My Account</h2>
+
+        <div class="account-grid">
+            <div class="card">
+                <h3>Personal Information</h3>
+                <p><strong>Name:</strong> <span id="accName">-</span></p>
+                <p><strong>Email:</strong> <span id="accEmail">-</span></p>
+                <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+            </div>
+
+            <div class="card">
+                <h3>Financial Summary</h3>
+                <p><strong>Account Balance:</strong> $<span id="accBalance">0.00</span> USDT</p>
+                <p><strong>Total Invested:</strong> $<span id="accInvested">0.00</span> USDT</p>
+                <p><strong>Total Profit:</strong> $<span id="accProfit">0.00</span> USDT</p>
+            </div>
+
+            <div class="card">
+                <h3>Account Actions</h3>
+                <button class="btn btn-secondary btn-full" onclick="changePassword()">Change Password</button>
+                <button class="btn btn-danger btn-full" onclick="handleLogout(event)">Logout</button>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
                 <!-- Daily Claim Card -->
