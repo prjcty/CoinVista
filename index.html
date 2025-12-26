@@ -104,6 +104,24 @@
                     <p class="balance-desc">Initial Bonus: $3.00 USDT</p>
                 </div>
 
+                <!-- My Account Section -->
+                <section id="account" class="account section-padding">
+                    <div class="container">
+                        <h2 class="section-title">My Account</h2>
+                
+                        <div class="account-card card">
+                            <p><strong>Name:</strong> <span id="accountName">John Doe</span></p>
+                            <p><strong>Email:</strong> <span id="accountEmail">john@example.com</span></p>
+                            <p><strong>Account Status:</strong> <span class="status-active">Active</span></p>
+                            <p><strong>Joined:</strong> <span id="joinDate">2025-01-01</span></p>
+                
+                            <button class="btn btn-secondary" onclick="editProfile()">Edit Profile</button>
+                            <button class="btn btn-danger" onclick="handleLogout(event)">Logout</button>
+                        </div>
+                    </div>
+                </section>
+
+
                 <!-- Daily Claim Card -->
                 <div class="card claim-card">
                     <h3>Daily Claim</h3>
@@ -121,6 +139,8 @@
                     <div class="invested-amount" id="investedDisplay">$0.00</div>
                     <p class="invested-desc">Active Investment</p>
                 </div>
+
+                
 
                 <!-- Total Profit Card -->
                 <div class="card profit-card">
