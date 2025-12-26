@@ -74,8 +74,7 @@
                 <li><a href="#plans" class="nav-link">Investment Plans</a></li>
                 <li><a href="#deposit" class="nav-link">Deposit</a></li>
                 <li><a href="#withdraw" class="nav-link">Withdraw</a></li>
-                <li><a href="#account" class="nav-link" onclick="loadAccountDetails()">My Account</a></li>
-</li>
+                <li><a href="#" class="nav-link" onclick="openAccountModal(event)">My Account</a></li>
                 <li><a href="#" class="nav-link" onclick="handleLogout(event)">Logout</a></li>
             </ul>
 
@@ -283,5 +282,51 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- My Account Modal -->
+<div id="accountModal" class="modal">
+    <div class="modal-content account-modal">
+        <span class="close-btn" onclick="closeAccountModal()">&times;</span>
+
+        <h2 class="modal-title">👤 My Account</h2>
+
+        <div class="account-details">
+            <div class="detail-row">
+                <span>Name:</span>
+                <strong id="accName">John Doe</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Email:</span>
+                <strong id="accEmail">john@example.com</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Account Balance:</span>
+                <strong>$<span id="accBalance">3.00</span> USDT</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Total Invested:</span>
+                <strong>$<span id="accInvested">0.00</span> USDT</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Total Profit:</span>
+                <strong>$<span id="accProfit">0.00</span> USDT</strong>
+            </div>
+
+            <div class="detail-row">
+                <span>Status:</span>
+                <strong class="status-active">Active</strong>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="closeAccountModal()">Close</button>
+            <button class="btn btn-danger" onclick="handleLogout(event)">Logout</button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
