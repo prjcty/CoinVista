@@ -396,3 +396,22 @@ function showSignupMessage(msg, type) {
   msgEl.textContent = msg
   msgEl.className = "message " + type
 }
+function openAccountModal(event) {
+    event.preventDefault();
+    document.getElementById("accountModal").classList.add("modal-active");
+
+    // Sync data from dashboard
+    document.getElementById("accBalance").innerText =
+        document.getElementById("balanceDisplay").innerText.replace("$", "");
+
+    document.getElementById("accInvested").innerText =
+        document.getElementById("investedDisplay").innerText.replace("$", "");
+
+    document.getElementById("accProfit").innerText =
+        document.getElementById("profitDisplay").innerText.replace("$", "");
+}
+
+function closeAccountModal() {
+    document.getElementById("accountModal").classList.remove("modal-active");
+}
+
