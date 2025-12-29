@@ -640,6 +640,331 @@ body {
   align-items: start;
 }
 
+/* Added account section styles */
+.account {
+  background: var(--bg-light);
+}
+
+.account-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.account-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 30px;
+  animation: slideUp 0.6s ease;
+}
+
+.account-card h3 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-item {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  padding-bottom: 12px;
+}
+
+.info-item label {
+  display: block;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.info-item p {
+  color: var(--text-light);
+  font-size: 16px;
+}
+
+.status-active {
+  color: var(--success);
+  font-weight: bold;
+}
+
+.logo-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+#logoInput {
+  display: none;
+}
+
+.upload-hint {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.logo-img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 8px;
+}
+
+/* Added referral section styles */
+.referral {
+  background: var(--bg-dark);
+}
+
+.referral-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.referral-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 30px;
+  animation: slideUp 0.6s ease;
+}
+
+.referral-card h3 {
+  color: var(--primary);
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.referral-desc {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.referral-link-box {
+  display: flex;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--primary);
+}
+
+.referral-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  padding: 8px;
+  outline: none;
+}
+
+.referral-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-item {
+  background: rgba(0, 212, 255, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(135deg, var(--primary), #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Added daily tasks section styles */
+.dailytasks {
+  background: var(--bg-light);
+}
+
+.tasks-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.task-card {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 30px;
+  animation: slideUp 0.6s ease;
+}
+
+.task-card h3 {
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.task-desc {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.deposits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.no-deposits {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.deposit-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.deposit-info-small {
+  flex: 1;
+}
+
+.deposit-info-small p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.deposit-info-small strong {
+  color: var(--primary);
+}
+
+.deposit-date {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.deposit-status {
+  font-size: 12px;
+}
+
+.deposit-status .pending {
+  color: var(--warning);
+}
+
+.deposit-status .approved {
+  color: var(--success);
+}
+
+.deposit-status .rejected {
+  color: var(--accent);
+}
+
+.deposit-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid var(--primary);
+}
+
+.deposit-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Added image modal styles */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  animation: fadeIn 0.3s ease;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: var(--bg-light);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-modal-content img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.image-modal-content p {
+  color: var(--text-light);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--primary);
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  color: #00ffff;
+  transform: scale(1.2);
+}
+
 @media (max-width: 768px) {
   .deposit-container,
   .withdraw-container {
@@ -742,34 +1067,4 @@ body {
 
 .glow {
   animation: glow 2s infinite;
-}
-
-.account-modal {
-    max-width: 420px;
-    text-align: left;
-}
-
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.detail-row span {
-    color: #777;
-}
-
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
 }
