@@ -18,8 +18,12 @@
   --radius: 12px;
 }
 
-html {
-  scroll-behavior: smooth;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* Prevent scrolling on entire page */
 }
 
 body {
@@ -27,6 +31,15 @@ body {
   background: var(--bg-dark);
   color: var(--text-light);
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content wrapper to fill viewport */
+main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .container {
@@ -36,7 +49,8 @@ body {
 }
 
 .section-padding {
-  padding: 60px 0;
+  padding: 30px 0;
+  /* Reduced padding for smaller screens */
 }
 
 /* Added login modal styles */
@@ -129,12 +143,12 @@ body {
 /* Navigation */
 .navbar {
   background: linear-gradient(135deg, var(--bg-light) 0%, var(--secondary) 100%);
-  padding: 15px 0;
-  position: sticky;
-  top: 0;
+  padding: 12px 0;
+  /* Removed sticky, reduced padding */
   z-index: 1000;
   box-shadow: 0 2px 20px rgba(0, 212, 255, 0.1);
   border-bottom: 1px solid var(--primary);
+  flex-shrink: 0;
 }
 
 .nav-container {
@@ -147,7 +161,8 @@ body {
 }
 
 .nav-logo {
-  font-size: 24px;
+  font-size: 18px;
+  /* Reduced from 24px */
   font-weight: bold;
   background: linear-gradient(135deg, var(--primary), #00ffff);
   -webkit-background-clip: text;
@@ -156,13 +171,17 @@ body {
 }
 
 .logo-placeholder {
-  font-size: 20px;
+  font-size: 16px;
+  /* Reduced from 20px */
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: 30px;
+  gap: 15px;
+  /* Reduced from 30px */
+  flex-wrap: wrap;
+  max-width: calc(100% - 100px);
 }
 
 .nav-link {
@@ -170,6 +189,9 @@ body {
   text-decoration: none;
   transition: all 0.3s ease;
   font-weight: 500;
+  font-size: 12px;
+  /* Reduced from 14px */
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -187,10 +209,12 @@ body {
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, var(--secondary) 0%, var(--bg-light) 100%);
-  padding: 120px 0;
+  padding: 40px 0;
+  /* Reduced from 120px */
   text-align: center;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .hero::before {
@@ -220,8 +244,10 @@ body {
 }
 
 .hero-title {
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-size: 32px;
+  /* Reduced from 48px */
+  margin-bottom: 12px;
+  /* Reduced from 20px */
   background: linear-gradient(135deg, var(--primary), #00ffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -230,9 +256,10 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 20px;
+  font-size: 14px;
+  /* Reduced from 20px */
   color: var(--text-muted);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   animation: slideUp 0.8s ease 0.2s both;
 }
 
@@ -1059,12 +1086,4 @@ body {
   50% {
     box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
   }
-}
-
-.pulse {
-  animation: pulse 2s infinite;
-}
-
-.glow {
-  animation: glow 2s infinite;
 }
