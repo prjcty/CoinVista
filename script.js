@@ -9,6 +9,11 @@ let appData = {
   investments: [],
   isLoggedIn: false,
   userEmail: null,
+  userName: null,
+  registrationDate: null,
+  referralId: null,
+  referralCount: 0,
+  referralEarnings: 0,
 }
 
 // Load data from localStorage
@@ -24,7 +29,15 @@ function loadData() {
     appData = { ...appData, ...JSON.parse(stored) }
   }
   appData.isLoggedIn = true
+
+  if (!appData.referralId) {
+    appData.referralId = generateReferralId()
+  }
+
   updateUI()
+  updateAccountDisplay()
+  updateReferralDisplay()
+  updateDepositsList()
 }
 
 // Save data to localStorage
@@ -270,11 +283,13 @@ function submitDeposit(e) {
     document.getElementById("depositNote").value = ""
     document.getElementById("imagePreview").innerHTML = ""
 
+    updateDepositsList()
     showMessage("depositMessage", "Deposit proof submitted! Pending admin approval.", "success")
   }
   reader.readAsDataURL(proof)
 }
 
+// Submit withdrawal
 function submitWithdraw(e) {
   e.preventDefault()
 
@@ -301,13 +316,12 @@ function submitWithdraw(e) {
   showMessage("withdrawMessage", "Withdrawal request submitted! Processing in 24-48 hours.", "success")
 }
 
-function showMessage(elementId, msg, type) {
-  const msgEl = document.getElementById(elementId)
+function showMessage(elementId, msg, type = "info") {
+  const msgEl = document.createElement("div")
   msgEl.textContent = msg
   msgEl.className = "message " + type
-  setTimeout(() => {
-    msgEl.className = "message"
-  }, 3000)
+  document.body.appendChild(msgEl)
+  setTimeout(() => msgEl.remove(), 3000)
 }
 
 // Image preview
@@ -328,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadData()
+  loadSavedLogo()
 })
 
 function handleLogin(event) {
@@ -338,6 +353,16 @@ function handleLogin(event) {
   if (email && password.length >= 6) {
     appData.isLoggedIn = true
     appData.userEmail = email
+
+    // Try to get stored user data
+    const stored = localStorage.getItem("coinvistaUser")
+    if (stored) {
+      const userData = JSON.parse(stored)
+      appData.userName = userData.name || email
+    } else {
+      appData.userName = email
+    }
+
     localStorage.setItem("coinvistaUser", JSON.stringify({ email, password }))
     closeLoginModal()
     loadData()
@@ -355,7 +380,12 @@ function handleSignup(event) {
   if (name && email && password.length >= 6) {
     appData.isLoggedIn = true
     appData.userEmail = email
+    appData.userName = name
+    appData.registrationDate = new Date().toISOString()
+    appData.referralId = generateReferralId()
+
     localStorage.setItem("coinvistaUser", JSON.stringify({ name, email, password }))
+    saveData()
     closeLoginModal()
     loadData()
   } else {
@@ -396,22 +426,113 @@ function showSignupMessage(msg, type) {
   msgEl.textContent = msg
   msgEl.className = "message " + type
 }
-function openAccountModal(event) {
-    event.preventDefault();
-    document.getElementById("accountModal").classList.add("modal-active");
 
-    // Sync data from dashboard
-    document.getElementById("accBalance").innerText =
-        document.getElementById("balanceDisplay").innerText.replace("$", "");
-
-    document.getElementById("accInvested").innerText =
-        document.getElementById("investedDisplay").innerText.replace("$", "");
-
-    document.getElementById("accProfit").innerText =
-        document.getElementById("profitDisplay").innerText.replace("$", "");
+function generateReferralId() {
+  return "ref_" + Math.random().toString(36).substr(2, 9).toUpperCase()
 }
 
-function closeAccountModal() {
-    document.getElementById("accountModal").classList.remove("modal-active");
+function generateReferralLink() {
+  const baseUrl = window.location.href.split("?")[0]
+  return baseUrl + "?ref=" + appData.referralId
 }
 
+function copyReferralLink() {
+  const link = document.getElementById("referralLink").value
+  navigator.clipboard.writeText(link).then(() => {
+    const msg = document.getElementById("referralMessage")
+    msg.textContent = "Referral link copied!"
+    msg.className = "message success"
+    setTimeout(() => {
+      msg.className = "message"
+    }, 2000)
+  })
+}
+
+function updateAccountDisplay() {
+  const userData = JSON.parse(localStorage.getItem("coinvistaUser") || "{}")
+  document.getElementById("userNameDisplay").textContent = userData.name || userData.email || "-"
+  document.getElementById("userEmailDisplay").textContent = userData.email || "-"
+
+  if (appData.registrationDate) {
+    const date = new Date(appData.registrationDate).toLocaleDateString()
+    document.getElementById("memberSinceDisplay").textContent = date
+  }
+
+  document.getElementById("totalReferralsDisplay").textContent = appData.referralCount
+}
+
+function updateReferralDisplay() {
+  document.getElementById("referralLink").value = generateReferralLink()
+  document.getElementById("referralCount").textContent = appData.referralCount
+  document.getElementById("referralEarnings").textContent = "$" + appData.referralEarnings.toFixed(2)
+}
+
+function updateDepositsList() {
+  const list = document.getElementById("depositsList")
+
+  if (appData.deposits.length === 0) {
+    list.innerHTML = '<p class="no-deposits">No deposits yet</p>'
+    return
+  }
+
+  list.innerHTML = appData.deposits
+    .map(
+      (deposit, index) => `
+    <div class="deposit-item">
+      <div class="deposit-info-small">
+        <p><strong>Deposit ${index + 1}:</strong> $${deposit.amount} USDT</p>
+        <p class="deposit-date">${new Date(deposit.date).toLocaleDateString()}</p>
+        <p class="deposit-status">Status: <span class="${deposit.status}">${deposit.status}</span></p>
+      </div>
+      <img src="${deposit.proof}" alt="Deposit proof ${index + 1}" class="deposit-image" onclick="showDepositImage('${index}')">
+    </div>
+  `,
+    )
+    .join("")
+}
+
+function showDepositImage(index) {
+  const deposit = appData.deposits[index]
+  const modal = document.createElement("div")
+  modal.className = "image-modal"
+  modal.innerHTML = `
+    <div class="image-modal-content">
+      <span class="close-modal" onclick="this.parentElement.parentElement.remove()">&times;</span>
+      <img src="${deposit.proof}" alt="Deposit proof">
+      <p>Amount: $${deposit.amount} USDT</p>
+      <p>Date: ${new Date(deposit.date).toLocaleString()}</p>
+    </div>
+  `
+  document.body.appendChild(modal)
+}
+
+function uploadLogo(event) {
+  const file = event.target.files[0]
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    const logoImg = document.getElementById("logoImg")
+    const logoText = document.getElementById("logoText")
+    logoImg.src = e.target.result
+    logoImg.style.display = "block"
+    logoText.style.display = "none"
+
+    // Save logo to localStorage
+    localStorage.setItem("coinvistaLogo", e.target.result)
+    showMessage("Account updated with new logo!")
+  }
+  reader.readAsDataURL(file)
+}
+
+// New function to load saved logo on startup
+function loadSavedLogo() {
+  const savedLogo = localStorage.getItem("coinvistaLogo")
+  if (savedLogo) {
+    const logoImg = document.getElementById("logoImg")
+    const logoText = document.getElementById("logoText")
+    logoImg.src = savedLogo
+    logoImg.style.display = "block"
+    logoText.style.display = "none"
+  }
+}
